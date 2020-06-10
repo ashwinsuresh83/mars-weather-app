@@ -1,0 +1,290 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --fw-light: 300;
+    --fw-normal: 400;
+    --fw-semi: 500;
+    --fw-bold: 700;
+    --fs-h1: 1.25rem;
+    --fs-h2: 1.75rem;
+    --fs-body: 1rem;
+    --fs-xl: 4rem;
+    --clr-light: #fff;
+    --clr-gray: #989898;
+    --clr-dark: #444;
+    --clr-accent: #D06D6D;
+    --clr-accent-dark: #613131;
+}
+
+.sr-only:not(:focus):not(:active) {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+body{
+    margin: 0;
+    font-family:"Montserrat",sans-serif;
+    line-height: 1.6;
+    background-image: url(../img/bg1.jpg);
+    background-size: cover;
+    height: 100vh;
+    color:var(--clr-light);
+    overflow: hidden;
+    
+}
+h1,h2,h3{
+    line-height: 1;
+}
+a{
+    color:var(--clr-accent);
+    &:hover{
+        color:var(--clr-accent-dark)
+    }
+}
+.main-title{
+    font-size:var(--fs-h1);
+    font-weight: var(--fw-light);
+    text-transform: uppercase;
+    color: var(--clr-accent);
+    letter-spacing: 2px;
+    grid-column: 1/-1;
+}
+.section-title{
+    font-size: var(--fs-h2);
+    font-weight: var(--fw-bold);
+    margin:0
+}
+.section-title--date{
+    font-size: var(--fs-xl);
+}
+.reading{
+    font-size: var(--fs-h1);
+    margin:0;
+    color:var(--clr-gray)
+}
+.mars-current-weather{
+    background:rgba(0,0,0,.7);
+    padding: 2em;
+    margin:4em 0 0 4em;
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-gap: 2em;
+}
+.date{
+    grid-column: 1/2;
+    &__day{
+        font-size: var(--fs-h2);
+        margin: 0;
+        color:var(--clr-gray);
+        font-weight: var(--fw-light);
+
+    }
+}
+.temp{
+    --border:solid .25em var(--clr-accent-dark);
+    grid-column: 2/3;
+    border-left: var(--border);
+    border-right: var(--border);
+    padding: 0 2em;
+}
+.wind{
+    grid-column: 3/4;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    align-self: start;
+    .reading,
+    .section-title{
+        grid-column: 2/3;
+
+    }
+    &__direction{
+        --size:6rem;
+        width:  var(--size);
+        height: var(--size);
+        border-radius: 50%;
+        background-color: rgba(255,255,255,.5);
+        display: grid;
+        place-items: center;
+        grid-row: 1/span 2;
+    }
+    &__arrow{
+        /*arrow*/
+        --direction:0deg;
+        --size:1rem;
+        height: calc(var(--size)*3);
+        width: var(--size);
+        background: var(--clr-accent-dark);
+        clip-path: polygon(50% 0,0% 100%,100% 100%);
+        transform: translateY(-50%)
+        rotate(var(--direction));
+        transform-origin: bottom center;
+    }
+}
+.info{
+    grid-column: 1/3;
+}
+.unit{
+    grid-column: 3/4;
+    place-self: end;
+    display: flex;
+    color: var(--clr-light);
+    opacity: .7;
+    transition: opacity 275ms linear;
+    &:hover{
+        opacity: 1;
+    }
+    label{
+        cursor: pointer;
+    }
+    input{
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+    }
+
+    &__toggle{
+        cursor: pointer;
+        width: 4em;
+        border: 2px solid var(--clr-light);
+        background: transparent;
+        padding: 0;
+        border-radius: 100vmax;
+        margin: 0 1em;
+        &::after{
+            content: '';
+            display: block;
+            background: var(--clr-light);
+            border-radius: 50%;
+            height: 1rem;
+            margin:3px;
+            margin-left: auto;
+            
+            width: 1rem;
+        }
+    }
+    :checked ~ .unit__toggle::after{
+        margin-left:3px;
+    }
+    
+}
+.previous-weather{
+    background: var(--clr-light);
+    color: var(--clr-dark);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    transform: translateY(70%);
+    transition: 350ms ease;
+    padding: 3rem;
+}
+.show-previous-weather{
+    position: absolute;
+    cursor: pointer;
+    background: var(--clr-light);
+    left:50%;
+    width: 10rem;
+    transform: translate(-50%,calc(-100% - 3rem));
+    text-align: center;
+    font-size: var(--fs-h2);
+    line-height: 1;
+    color: var(--clr-gray);
+    clip-path: polygon(50% 0,0 100%, 100% 100%);
+    border: 0;
+    font-family: inherit;
+    &:hover,&:focus{
+        color: var(--clr-dark);
+    }
+    span{
+        display: block;
+        transform: rotate(0);
+        transition: transform 300ms ease
+        
+    }
+}
+.previous-days{
+    display: flex;
+    justify-content: space-between;
+
+}
+.previous-weather__title{
+    text-align: center;
+}
+.previous-day{
+    opacity: 0;
+    &__date{
+        font-size: .9rem;
+        color: var(--clr-gray);
+    }
+    &__more-info{
+        cursor: pointer;
+        border: 0;
+        border-radius: 100vmax;
+        background: var(--clr-dark);
+        color: var(--clr-light);
+        text-transform: uppercase;
+        padding: .3em 1em;
+        &:hover{
+            background: var(--clr-gray);
+        }
+    }
+
+}
+.show-weather.previous-weather{
+    transform: translateY(0);
+    .show-previous-weather span{
+        display: block;
+        transform: rotate(180deg)
+        translateY(-6px);
+
+    }
+    .previous-day{
+        animation: slideUpIn 750ms forwards;
+    }
+    .previous-day>*{
+        margin: 0;
+    }
+    .previous-day:nth-child(1){
+        animation-delay: 100ms;
+    }
+    .previous-day:nth-child(2){
+        animation-delay:150ms;
+    }
+    .previous-day:nth-child(3){
+        animation-delay: 200ms;
+    }
+    .previous-day:nth-child(4){
+        animation-delay: 250ms;
+    }
+    .previous-day:nth-child(5){
+        animation-delay: 300ms;
+    }
+    .previous-day:nth-child(6){
+        animation-delay: 350ms;
+    }
+    .previous-day:nth-child(7){
+        animation-delay: 400ms;
+    }
+}
+@keyframes slideUpIn{
+    0%{
+        opacity: 0;
+        transform: translateY(50%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
